@@ -5,10 +5,9 @@ import { tweet } from "@/data/tweet";
 import { redirect } from "next/navigation";
 
 type Props = {
-    searchParams: {
-        q: string | undefined;
-    }
-}
+    searchParams: { q?: string };
+    
+};
 
 export default  function Page ({ searchParams}: Props) {
     if(!searchParams.q) redirect('/');

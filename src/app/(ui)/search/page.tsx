@@ -4,9 +4,11 @@ import { SearchInput } from "@/components/ui/search-input";
 import { tweet } from "@/data/tweet";
 import { redirect } from "next/navigation";
 
-interface PageProps {
-  searchParams?: { q?: string };
-}
+type PageProps = {
+  searchParams?: {
+    q?: string;
+  };
+};
 
 export default function Page({ searchParams }: PageProps) {
   if (!searchParams?.q) redirect("/");

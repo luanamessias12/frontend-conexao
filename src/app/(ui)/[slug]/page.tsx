@@ -12,7 +12,7 @@ export default function Page () {
 
     return (
         <div>
-            <GeneralHeader backHref="/">
+            <GeneralHeader backHref="/home">
                 <div className="font-bold text-lg">{user.name}</div>
                 <div className="text-xs text-gray-500">{user.postCount} posts</div>
             </GeneralHeader>

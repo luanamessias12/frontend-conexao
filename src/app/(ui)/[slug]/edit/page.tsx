@@ -13,7 +13,7 @@ export default function Page () {
 
     return (
         <div>
-            <GeneralHeader backHref="/">
+            <GeneralHeader backHref="/home">
                 <div className="font-bold text-lg">Editar Perfil</div>
                 
             </GeneralHeader>

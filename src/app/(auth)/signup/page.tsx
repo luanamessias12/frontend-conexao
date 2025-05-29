@@ -20,8 +20,10 @@ export default function Page() {
     try {
       const response = await api.post("/signup", { name, email, password });
       setSuccessMsg("Cadastro realizado com sucesso!");
-      console.log("Resposta do backend:", response.data);
-      // aqui pode limpar campos ou redirecionar
+      // limpar campos, se quiser
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (error: any) {
       setErrorMsg(
         error.response?.data?.mensagem || "Erro ao cadastrar. Tente novamente."
@@ -41,7 +43,7 @@ export default function Page() {
           onChange={(e) => setName(e.target.value)}
           required
           minLength={2}
-          className="input"
+          className="input" // mantém a classe original para estilizar
         />
         <input
           type="email"

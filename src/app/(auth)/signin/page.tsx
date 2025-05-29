@@ -19,8 +19,7 @@ export default function Page() {
     try {
       const response = await api.post("/login", { email, password });
       setSuccessMsg("Login realizado com sucesso!");
-      console.log("Resposta do backend:", response.data);
-      // aqui você pode redirecionar ou salvar token
+      // aqui pode salvar token ou redirecionar
     } catch (error: any) {
       setErrorMsg(
         error.response?.data?.mensagem || "Erro ao fazer login. Tente novamente."
@@ -47,7 +46,6 @@ export default function Page() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          minLength={4}
           className="input"
         />
         <button type="submit" className="btn-primary">

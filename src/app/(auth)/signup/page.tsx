@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/firebase"; // ajuste o caminho conforme onde você salvou
 import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
-import api from "@/services/api";
 
 export default function Page() {
   const [name, setName] = useState("");
@@ -18,16 +19,19 @@ export default function Page() {
     setSuccessMsg("");
 
     try {
-      const response = await api.post("/signup", { name, email, password });
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Atualiza o nome do usuário
+      await updateProfile(user, { displayName: name });
+
       setSuccessMsg("Cadastro realizado com sucesso!");
-      // limpar campos, se quiser
       setName("");
       setEmail("");
       setPassword("");
     } catch (error: any) {
-      setErrorMsg(
-        error.response?.data?.mensagem || "Erro ao cadastrar. Tente novamente."
-      );
+      const errorMessage = error.message || "Erro ao cadastrar. Tente novamente.";
+      setErrorMsg(errorMessage);
     }
   };
 
@@ -43,7 +47,7 @@ export default function Page() {
           onChange={(e) => setName(e.target.value)}
           required
           minLength={2}
-          className="input" // mantém a classe original para estilizar
+          className="input"
         />
         <input
           type="email"

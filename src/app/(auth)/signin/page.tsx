@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
-import api from "@/services/api";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../../../firebase"; // seu arquivo de configuração do Firebase
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -11,18 +13,21 @@ export default function Page() {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
+  const auth = getAuth(app);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     setSuccessMsg("");
 
     try {
-      const response = await api.post("/login", { email, password });
+      await signInWithEmailAndPassword(auth, email, password);
       setSuccessMsg("Login realizado com sucesso!");
-      // aqui pode salvar token ou redirecionar
+      // Aqui você pode redirecionar o usuário, por exemplo:
+      // router.push('/dashboard');
     } catch (error: any) {
       setErrorMsg(
-        error.response?.data?.mensagem || "Erro ao fazer login. Tente novamente."
+        error.message || "Erro ao fazer login. Tente novamente."
       );
     }
   };

@@ -1,6 +1,11 @@
 
+import Header from "../(site)/components/Header";
+import Footer from "../(site)/components/Footer";
+
 export default function BlogPage() {
   return (
+        <>
+          <Header />
     <div className="min-h-screen flex flex-col bg-white text-gray-900">
 
       <main className="flex-1 px-6 py-12 max-w-5xl mx-auto">
@@ -82,5 +87,7 @@ export default function BlogPage() {
       </main>
 
     </div>
+          <Footer />
+        </>
   );
 }

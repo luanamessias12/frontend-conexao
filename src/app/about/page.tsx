@@ -1,6 +1,11 @@
+import Header from "../(site)/components/Header";
+import Footer from "../(site)/components/Footer";
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <Header />
+
       <main className="flex-1 px-6 py-12 max-w-5xl mx-auto text-center space-y-10">
         <h1
           className="text-4xl font-bold"
@@ -42,6 +47,8 @@ export default function AboutPage() {
           ))}
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

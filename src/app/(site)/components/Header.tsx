@@ -13,6 +13,9 @@ export default function Header() {
         </div>
 
         <nav className="flex items-center space-x-6">
+          <Link href="/" className="hover:underline">
+              Home
+          </Link>
           <Link href="/about" className="hover:underline">
             Sobre nós
           </Link>

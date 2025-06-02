@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "../../../firebase"; // seu arquivo de configuração do Firebase
+import { app } from "../../../firebase"; // ajuste se necessário
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ export default function Page() {
   const [successMsg, setSuccessMsg] = useState("");
 
   const auth = getAuth(app);
+  const router = useRouter(); // redirecionador
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,12 +25,9 @@ export default function Page() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setSuccessMsg("Login realizado com sucesso!");
-      // Aqui você pode redirecionar o usuário, por exemplo:
-      // router.push('/dashboard');
+      router.push("/home"); // redireciona para a rota home
     } catch (error: any) {
-      setErrorMsg(
-        error.message || "Erro ao fazer login. Tente novamente."
-      );
+      setErrorMsg(error.message || "Erro ao fazer login. Tente novamente.");
     }
   };
 

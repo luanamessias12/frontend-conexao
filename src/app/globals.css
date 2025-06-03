@@ -7,4 +7,5 @@ body {
   font-size: 16px;
   background-color: rgb(5, 11, 48);
   color: #fff;
+  @apply bg-white text-gray-900;
 }

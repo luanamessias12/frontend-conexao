@@ -1,39 +1,54 @@
-"use client";
-
-import Image from "next/image";
+import Header from "../(site)/components/Header";
+import Footer from "../(site)/components/Footer";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white text-gray-800 px-4 py-10 md:px-20">
-      <section className="max-w-5xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-bold text-center mb-10 text-[rgb(5,11,48)]">
-          Sobre Nós
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <Header />
+
+      <main className="flex-1 px-6 py-12 max-w-5xl mx-auto text-center space-y-10">
+        <h1
+          className="text-4xl font-bold"
+          style={{ color: 'rgb(5, 11, 48)' }}
+        >
+          Quem somos
         </h1>
+        <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          Somos uma plataforma comprometida em conectar pessoas, escolas e profissionais de forma inteligente e humanizada.
+        </p>
 
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="w-full md:w-1/2">
-            <Image
-              src="/sobre-nos.jpg"
-              alt="Imagem Sobre Nós"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-lg w-full h-auto object-cover"
-            />
-          </div>
-
-          <div className="w-full md:w-1/2 text-justify space-y-5">
-            <p>
-              O <strong>Conexão Para Todos</strong> é uma plataforma criada com o objetivo de conectar pessoas, ideias e propósitos em um espaço acessível e acolhedor.
-            </p>
-            <p>
-              Acreditamos na inclusão digital e na importância de dar voz a todos. Nosso time é formado por profissionais comprometidos com a inovação e o impacto social.
-            </p>
-            <p>
-              Aqui, usuários podem compartilhar experiências, criar conexões e colaborar em uma comunidade vibrante.
-            </p>
-          </div>
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
+          {[
+            {
+              title: "Missão",
+              text: "Facilitar o acesso à informação e à educação, promovendo inclusão e autonomia para todos.",
+            },
+            {
+              title: "Visão",
+              text: "Ser referência nacional em tecnologia acessível e transformadora na área educacional e social.",
+            },
+            {
+              title: "Valores",
+              text: "Inclusão, ética, empatia, inovação e compromisso com o impacto social positivo.",
+            },
+          ].map(({ title, text }) => (
+            <div
+              key={title}
+              className="bg-white rounded-2xl p-6 border border-gray-200 shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h2
+                className="text-xl font-semibold mb-3"
+                style={{ color: 'rgb(5, 11, 48)' }}
+              >
+                {title}
+              </h2>
+              <p className="text-gray-800 text-sm leading-relaxed">{text}</p>
+            </div>
+          ))}
         </div>
-      </section>
-    </main>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

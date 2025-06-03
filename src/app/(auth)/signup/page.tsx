@@ -2,16 +2,29 @@
 
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "@/firebase"; // ajuste o caminho conforme onde você salvou
+import { auth } from "@/firebase";
+import { db } from "@/firebase"; // Importe o Firestore
+import { doc, setDoc } from "firebase/firestore"; // Importe funções do Firestore
 import { Logo } from "@/components/ui/logo";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Para redirecionar
 
 export default function Page() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
+  const generateSlug = (name: string, uid: string) => {
+    return (
+      name.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "") +
+      "-" +
+      uid.slice(0, 6)
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,13 +35,29 @@ export default function Page() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Atualiza o nome do usuário
+      // Atualiza o nome no Auth
       await updateProfile(user, { displayName: name });
+
+      // Cria o perfil no Firestore
+      const slug = generateSlug(name, user.uid);
+
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name,
+        email,
+        slug,
+        createdAt: new Date(),
+        bio: "",
+        avatarUrl: "", // Pode adicionar futuramente
+      });
 
       setSuccessMsg("Cadastro realizado com sucesso!");
       setName("");
       setEmail("");
       setPassword("");
+
+      // Redireciona para home
+      router.push("/home");
     } catch (error: any) {
       const errorMessage = error.message || "Erro ao cadastrar. Tente novamente.";
       setErrorMsg(errorMessage);
@@ -66,7 +95,10 @@ export default function Page() {
           minLength={4}
           className="input"
         />
-        <button type="submit" className="btn-primary">
+        <button
+          type="submit"
+          className="btn-primary bg-blue-800 text-white font-medium px-5 py-2 rounded-full hover:bg-blue-700 transition"
+        >
           Cadastrar
         </button>
       </form>
@@ -76,7 +108,7 @@ export default function Page() {
 
       <div className="flex flex-col justify-center items-center gap-1 md:flex-row">
         <div className="text-gray-500">Já tem uma conta?</div>
-        <Link href="/signin" className="hover:underline">
+        <Link href="/auth/signin" className="hover:underline">
           Entrar na conexão
         </Link>
       </div>

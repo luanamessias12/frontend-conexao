@@ -33,7 +33,7 @@ export default function Header() {
       </header>
 
       {showMaintenance && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-6 text-white text-center">
+        <div className="fixed inset-0 bg-[rgb(5,11,48)] bg-opacity-90 z-50 flex flex-col items-center justify-center p-6 text-white text-center">
           <h2 className="text-3xl font-bold mb-4">Página em Manutenção</h2>
           <p className="mb-6 max-w-md">Estamos atualizando essa funcionalidade. Em breve estará disponível!</p>
           <button

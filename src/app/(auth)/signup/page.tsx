@@ -1,94 +1,91 @@
 "use client";
 
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/ui/logo";
 import { useRouter } from "next/navigation";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 import { auth, db } from "@/firebase";
 
-export default function SignupPage() {
-  const router = useRouter();
+export default function Signup() {
   const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSignup = async () => {
+    setLoading(true);
     setError("");
 
     try {
-      // Cria o usuário no Auth
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
-      // Atualiza o displayName (opcional)
-      await updateProfile(user, { displayName: name });
+      const slug = name.toLowerCase().replace(/\s+/g, "-");
 
-      // Cria o documento do usuário no Firestore com base no slug
-      await setDoc(doc(db, "users", slug), {
-        uid: user.uid,
+      await setDoc(doc(db, "users", user.uid), {
         name,
-        email,
+        email: user.email,
         slug,
-        avatar: "/default-avatar.png",
-        cover: "/default-cover.jpg",
         bio: "",
         link: "",
-        postCount: 0,
       });
 
-      // Redireciona para a página inicial após o cadastro
       router.push("/home");
     } catch (err: any) {
-      console.error(err);
-      setError("Erro ao cadastrar. Tente novamente.");
+      console.error("Erro ao cadastrar:", err);
+      setError(err.message || "Erro ao criar conta");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSignup} className="p-6 max-w-md mx-auto space-y-4">
-      <h1 className="text-2xl font-bold">Criar conta</h1>
+    <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      <div className="w-full max-w-md space-y-6 p-8 border border-gray-800 rounded-2xl">
+        <div className="max-w-lg mx-auto mt-12 px-6">
+          <Logo size={56} />
+        </div>
+      </div>
+      <h1 className="text-2xl font-bold text-center">Crie sua conta</h1>
 
-      <input
-        type="text"
-        placeholder="Nome"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="w-full p-2 border rounded"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Slug (ex: maria123)"
-        value={slug}
-        onChange={(e) => setSlug(e.target.value)}
-        className="w-full p-2 border rounded"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 border rounded"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Senha"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 border rounded"
-        required
-      />
+      <div className="space-y-4">
+        <Input
+          placeholder="Nome"
+          value={name}
+          onChange={(value) => setName(value)}
+        />
+        <Input
+          placeholder="E-mail"
+          value={email}
+          onChange={(value) => setEmail(value)}
+        />
+        <Input
+          placeholder="Senha"
+          password
+          value={password}
+          onChange={(value) => setPassword(value)}
+          onEnter={handleSignup}
+        />
+      </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-      <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
-        Cadastrar
-      </button>
-    </form>
+      <Button
+        label={loading ? "Criando conta..." : "Criar conta"}
+        onClick={handleSignup}
+        disabled={loading}
+        className="w-full"
+        size={1}
+      />
+    </div>
   );
 }

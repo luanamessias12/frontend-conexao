@@ -23,6 +23,7 @@ export default function Header() {
             <Link href="/contact" className="hover:underline">Contato</Link>
 
             {/* Botão "Entrar" dentro de uma div com flex-shrink-0 para evitar quebra e alinhamento estranho */}
+            {/* 
             <div className="flex-shrink-0">
               <button
                 onClick={() => setShowMaintenance(true)}
@@ -31,6 +32,7 @@ export default function Header() {
                 Entrar
               </button>
             </div>
+            */}
           </nav>
         </div>
       </header>

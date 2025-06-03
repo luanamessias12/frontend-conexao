@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Header from "./(site)/components/Header";
 import Footer from "./(site)/components/Footer";
 import { Globe, Handshake, Users } from "lucide-react";
 
 export default function HomePage() {
+  const [showMaintenance, setShowMaintenance] = useState(false);
+
   return (
     <>
       <Header />
@@ -68,13 +71,33 @@ export default function HomePage() {
             <p className="text-lg md:text-xl">
               Cadastre-se agora e faça parte de uma rede que transforma realidades.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold transition">
+            <button
+              onClick={() => setShowMaintenance(true)}
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold transition"
+            >
               Começar agora
             </button>
           </div>
         </section>
       </div>
+
       <Footer />
+
+      {/* Modal Manutenção */}
+      {showMaintenance && (
+        <div className="fixed inset-0 bg-[rgb(5,11,48)] bg-opacity-90 z-50 flex flex-col items-center justify-center p-6 text-white text-center">
+          <h2 className="text-3xl font-bold mb-4">Página em Manutenção</h2>
+          <p className="mb-6 max-w-md">
+            Estamos atualizando essa funcionalidade. Em breve estará disponível!
+          </p>
+          <button
+            onClick={() => setShowMaintenance(false)}
+            className="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200"
+          >
+            Voltar ao site
+          </button>
+        </div>
+      )}
     </>
   );
 }

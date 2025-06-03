@@ -22,17 +22,18 @@ export default function Header() {
             <Link href="/blog" className="hover:underline">Blog</Link>
             <Link href="/contact" className="hover:underline">Contato</Link>
 
-            {/* Botão "Entrar" dentro de uma div com flex-shrink-0 para evitar quebra e alinhamento estranho */}
-            {/* 
+            {/* Div mantida ativa para layout */}
             <div className="flex-shrink-0">
+              {/* Botão "Entrar" comentado para ocultar sem remover a div */}
+              {/*
               <button
                 onClick={() => setShowMaintenance(true)}
                 className="text-white font-medium px-5 py-2 rounded-full transition bg-blue-600 hover:bg-blue-700"
               >
                 Entrar
               </button>
+              */}
             </div>
-            */}
           </nav>
         </div>
       </header>
@@ -52,3 +53,4 @@ export default function Header() {
     </>
   );
 }
+

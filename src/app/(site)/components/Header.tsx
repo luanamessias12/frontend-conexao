@@ -21,13 +21,16 @@ export default function Header() {
             <Link href="/about" className="hover:underline">Sobre nós</Link>
             <Link href="/blog" className="hover:underline">Blog</Link>
             <Link href="/contact" className="hover:underline">Contato</Link>
-            
+
+            {/* Botão "Entrar" comentado para exibição apenas do site */}
+            {/*
             <button
               onClick={() => setShowMaintenance(true)}
               className="text-white font-medium px-5 py-2 rounded-full transition bg-blue-600 hover:bg-blue-700"
             >
               Entrar
             </button>
+            */}
           </nav>
         </div>
       </header>

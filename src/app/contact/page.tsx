@@ -62,7 +62,7 @@ export default function ContactPage() {
           <p className="mt-6 sm:mt-8 text-sm text-center" style={{ color: 'rgb(5, 11, 48)' }}>
             Ou envie um e-mail direto para:{" "}
             <a href="mailto:contato@conexao.com.br" className="underline font-semibold">
-              contato@conexao.com.br
+              conexaoparatodos12@gmail.com
             </a>
           </p>
         </div>

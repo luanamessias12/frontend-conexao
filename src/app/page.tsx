@@ -1,6 +1,6 @@
 import Header from "./(site)/components/Header";
 import Footer from "./(site)/components/Footer";
-import Image from "next/image";
+import { Globe, Handshake, Users } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -17,25 +17,31 @@ export default function HomePage() {
           </p>
         </section>
 
-        {/* Destaques */}
+        {/* Destaques com ícones */}
         <section className="bg-gray-50 py-16 px-6">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
-              <Image src="/conexao-icone1.png" alt="Inclusão" width={60} height={60} className="mx-auto mb-4" />
+              <Globe size={48} className="text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-[rgb(5,11,48)]">Inclusão Digital</h3>
-              <p className="text-gray-600">Acreditamos que todos merecem acesso à tecnologia e oportunidades.</p>
+              <p className="text-gray-600">
+                Acreditamos que todos merecem acesso à tecnologia e oportunidades.
+              </p>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
-              <Image src="/conexao-icone2.png" alt="Parcerias" width={60} height={60} className="mx-auto mb-4" />
+              <Handshake size={48} className="text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-[rgb(5,11,48)]">Parcerias Humanizadas</h3>
-              <p className="text-gray-600">Conectamos escolas e profissionais que compartilham os mesmos valores.</p>
+              <p className="text-gray-600">
+                Conectamos escolas e profissionais que compartilham os mesmos valores.
+              </p>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition">
-              <Image src="/conexao-icone3.png" alt="Colaboração" width={60} height={60} className="mx-auto mb-4" />
+              <Users size={48} className="text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-2 text-[rgb(5,11,48)]">Comunidade Colaborativa</h3>
-              <p className="text-gray-600">Incentivamos trocas de experiências para gerar impacto social positivo.</p>
+              <p className="text-gray-600">
+                Incentivamos trocas de experiências para gerar impacto social positivo.
+              </p>
             </div>
           </div>
         </section>

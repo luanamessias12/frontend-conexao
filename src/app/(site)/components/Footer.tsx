@@ -8,7 +8,7 @@ export default function Footer() {
       }}
     >
       <p>© {new Date().getFullYear()} Conexão Para Todos - Todos os direitos reservados.</p>
-      <p>Contato: contato@conexao.com.br</p>
+      <p>Contato: conexaoparatodos12@gmail.com</p>
     </footer>
   );
 }
